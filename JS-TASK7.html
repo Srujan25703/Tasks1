@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Train Animation</title>
+    <style>
+      #container {
+        text-align: center;
+      }
+
+      #train {
+        width: 200px; /* Increase the image width as needed */
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      #buttons {
+        text-align: center;
+        margin-top: 20px;
+      }
+      h1 {
+        margin-top: 30%;
+      }
+      img {
+        margin-top: 10%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <img
+        id="train"
+        src="https://img.freepik.com/free-photo/steam-train-chugs-through-mountain-forest-scene-generative-ai_188544-8072.jpg?w=2000"
+        alt="Train"
+      />
+      <div>
+        <h1>Click the following buttons to handle the animation</h1>
+      </div>
+      <div id="buttons">
+        <button id="startButton">Start</button>
+        <button id="stopButton">Stop</button>
+      </div>
+    </div>
+
+    <script>
+      const train = document.getElementById("train");
+      const startButton = document.getElementById("startButton");
+      const stopButton = document.getElementById("stopButton");
+      let animationId;
+      let trainPosition = 0;
+
+      startButton.addEventListener("click", () => {
+        // Start the animation by moving the train from left to right
+        train.style.left = "0";
+        trainPosition = 0;
+
+        function animateTrain() {
+          trainPosition += 2; // Adjust the speed as needed
+          train.style.left = trainPosition + "px";
+          if (trainPosition < window.innerWidth - 200) {
+            // Adjust the limit accordingly
+            animationId = requestAnimationFrame(animateTrain);
+          }
+        }
+
+        animationId = requestAnimationFrame(animateTrain);
+      });
+
+      stopButton.addEventListener("click", () => {
+        // Stop the animation
+        cancelAnimationFrame(animationId);
+      });
+    </script>
+  </body>
+</html>
